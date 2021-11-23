@@ -35,6 +35,11 @@
             }
         }
 
+        public bool IsEmpty(Board board)
+        {
+             return (board.GetPiece(this) == null);
+        }
+
         public static bool operator ==(Square left, Square right)
         {
             return left.Equals(right);

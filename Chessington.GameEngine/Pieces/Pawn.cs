@@ -8,7 +8,7 @@ namespace Chessington.GameEngine.Pieces
         public Pawn(Player player) 
             : base(player) { }
 
-        public override IEnumerable<Square> GetAvailableMoves(Board board)
+        private IEnumerable<Square> GetPotentialMoves(Board board)
         {
             var currentSquare = board.FindPiece(this);
             List<Square> availableMoves = new List<Square>();
@@ -33,6 +33,28 @@ namespace Chessington.GameEngine.Pieces
                         availableMoves.Add(new Square(currentSquare.Row + 2, currentSquare.Col));
                     }
                     break;
+            }
+
+            return availableMoves;
+            
+            
+            
+            
+        }
+
+        public override IEnumerable<Square> GetAvailableMoves(Board board)
+        {
+            List<Square> potentialMoves = GetPotentialMoves(board).ToList();
+            List<Square> availableMoves = new List<Square>();
+
+            if (potentialMoves[0].IsEmpty(board))
+            {
+                availableMoves.Add(potentialMoves[0]);
+                
+                if (potentialMoves.Count == 2 & potentialMoves[potentialMoves.Count-1].IsEmpty(board))
+                {
+                    availableMoves.Add(potentialMoves[1]);
+                }
             }
 
             return availableMoves;

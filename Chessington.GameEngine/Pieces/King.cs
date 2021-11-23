@@ -20,7 +20,6 @@ namespace Chessington.GameEngine.Pieces
                     availableMoves = CheckSquareInBoundsAndAdd(availableMoves,
                         new Square(currentSquare.Row + j, currentSquare.Col + i));
                 }
-                
             }
             
             availableMoves.RemoveAll(x => x.Col == currentSquare.Col & x.Row == currentSquare.Row);
