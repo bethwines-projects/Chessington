@@ -63,21 +63,30 @@ namespace Chessington.GameEngine.Pieces
             var currentSquare = board.FindPiece(this);
             List<Square> availableMoves = new List<Square>();
             
-            for (int i = currentSquare.Col, j = currentSquare.Row; i < 8 & j < 8; j++, i++)
+            bool blocked = false;
+            for (int i = currentSquare.Col+1, j = currentSquare.Row+1; i < 8 && j < 8 && !blocked; j++, i++)
             {
                 availableMoves.Add(new Square(j,i));
+                blocked = !new Square(j,i).IsEmpty(board);
+                
             }
-            for (int i = currentSquare.Col, j = currentSquare.Row; i >= 0 & j < 8; j++, i--)
+            blocked = false;
+            for (int i = currentSquare.Col-1, j = currentSquare.Row+1; i >= 0 && j < 8 && !blocked; j++, i--)
             {
                 availableMoves.Add(new Square(j,i));
+                blocked = !new Square(j,i).IsEmpty(board);
             }
-            for (int i = currentSquare.Col, j = currentSquare.Row; i < 8 & j >= 0; j--, i++)
+            blocked = false;
+            for (int i = currentSquare.Col+1, j = currentSquare.Row-1; i < 8 && j >= 0 && !blocked; j--, i++)
             {
                 availableMoves.Add(new Square(j,i));
+                blocked = !new Square(j,i).IsEmpty(board);
             }
-            for (int i = currentSquare.Col, j = currentSquare.Row; i >= 0 & j >= 0; j--, i--)
+            blocked = false;
+            for (int i = currentSquare.Col-1, j = currentSquare.Row-1; i >= 0 && j >= 0 && !blocked; j--, i--)
             {
                 availableMoves.Add(new Square(j,i));
+                blocked = !new Square(j,i).IsEmpty(board);
             }
 
             availableMoves.RemoveAll(x => x.Col == currentSquare.Col & x.Row == currentSquare.Row);
