@@ -16,10 +16,22 @@ namespace Chessington.GameEngine.Pieces
             switch (this.Player)
             {
                 case Player.White:
-                    availableMoves.Add(new Square(currentSquare.Row-1,currentSquare.Col));
+                    availableMoves.Add(new Square(currentSquare.Row - 1, currentSquare.Col));
+                    
+                    if (currentSquare.Row == 7)
+                    {
+                        availableMoves.Add(new Square(currentSquare.Row - 2, currentSquare.Col));
+                    }
+
                     break;
+                    
                 case Player.Black:
-                    availableMoves.Add(new Square(currentSquare.Row+1,currentSquare.Col));
+                    availableMoves.Add(new Square(currentSquare.Row + 1, currentSquare.Col));
+                    
+                    if (currentSquare.Row == 1)
+                    {
+                        availableMoves.Add(new Square(currentSquare.Row + 2, currentSquare.Col));
+                    }
                     break;
             }
 
