@@ -25,25 +25,33 @@ namespace Chessington.GameEngine.Pieces
         {
             var currentSquare = board.FindPiece(this);
             List<Square> availableMoves = new List<Square>();
-
-            for (int col = currentSquare.Col; col >=0; col--)
+            
+            bool blocked = false;
+            for (int col = currentSquare.Col-1; col >=0 && !blocked; col--)
             {
                 availableMoves.Add(new Square(currentSquare.Row,col));
+                blocked = !new Square(currentSquare.Row, col).IsEmpty(board);
             }
             
-            for (int col = currentSquare.Col; col < 8; col++)
+            blocked = false;
+            for (int col = currentSquare.Col+1; col < 8 && !blocked; col++)
             {
                 availableMoves.Add(new Square(currentSquare.Row,col));
+                blocked = !new Square(currentSquare.Row, col).IsEmpty(board);
             }
             
-            for (int row = currentSquare.Row; row < 8; row++)
+            blocked = false;
+            for (int row = currentSquare.Row+1; row < 8 && !blocked; row++)
             {
                 availableMoves.Add(new Square(row,currentSquare.Col));
+                blocked = !new Square(row,currentSquare.Col).IsEmpty(board);
             }
             
-            for (int row = currentSquare.Row; row >= 0; row--)
+            blocked = false;
+            for (int row = currentSquare.Row-1; row >= 0 && !blocked; row--)
             {
                 availableMoves.Add(new Square(row,currentSquare.Col));
+                blocked = !new Square(row,currentSquare.Col).IsEmpty(board);
             }
 
             availableMoves.RemoveAll(x => x.Col == currentSquare.Col & x.Row == currentSquare.Row);
@@ -54,7 +62,7 @@ namespace Chessington.GameEngine.Pieces
         {
             var currentSquare = board.FindPiece(this);
             List<Square> availableMoves = new List<Square>();
-
+            
             for (int i = currentSquare.Col, j = currentSquare.Row; i < 8 & j < 8; j++, i++)
             {
                 availableMoves.Add(new Square(j,i));
@@ -85,6 +93,8 @@ namespace Chessington.GameEngine.Pieces
 
             return availablemoves;
         }
+        
+        
 
     }
 }
