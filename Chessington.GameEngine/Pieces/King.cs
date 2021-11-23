@@ -23,7 +23,7 @@ namespace Chessington.GameEngine.Pieces
             }
             
             availableMoves.RemoveAll(x => x.Col == currentSquare.Col & x.Row == currentSquare.Row);
-            return availableMoves;
+            return RemoveFriendlySquaresFromList(availableMoves,board);
         }
     }
 }
