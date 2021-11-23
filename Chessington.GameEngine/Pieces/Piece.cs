@@ -102,8 +102,31 @@ namespace Chessington.GameEngine.Pieces
 
             return availablemoves;
         }
-        
-        
+
+        public List<Square> RemoveFriendlySquaresFromList(List<Square> list,Board board)
+        {
+
+            List<Square> newList = new List<Square>();
+            
+            foreach (var square in list)
+            {
+                switch (board.GetPiece(square) == null)
+                {
+
+                    case true:
+                        newList.Add(square);
+                        break;
+
+                    case false:
+                        if (board.GetPiece(square).Player != Player)
+                        {
+                            newList.Add(square);
+                        }
+                        break;
+                }
+            }
+            return newList;
+        }
 
     }
 }
