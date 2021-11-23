@@ -1,4 +1,6 @@
-﻿namespace Chessington.GameEngine
+﻿using System.Diagnostics.Tracing;
+
+namespace Chessington.GameEngine
 {
     public struct Square
     {
@@ -37,7 +39,14 @@
 
         public bool IsEmpty(Board board)
         {
-             return (board.GetPiece(this) == null);
+            if (Col >= 0 && Col < 8 && Row >= 0 && Row < 8)
+            {
+                return (board.GetPiece(this) == null);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static bool operator ==(Square left, Square right)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Chessington.GameEngine.Pieces
@@ -35,12 +36,7 @@ namespace Chessington.GameEngine.Pieces
                     }
                     break;
             }
-
             return availableMoves;
-            
-            
-            
-            
         }
 
         public override IEnumerable<Square> GetAvailableMoves(Board board)
@@ -55,6 +51,38 @@ namespace Chessington.GameEngine.Pieces
                 if (potentialMoves.Count == 2 & potentialMoves[potentialMoves.Count-1].IsEmpty(board))
                 {
                     availableMoves.Add(potentialMoves[1]);
+                }
+            }
+            
+            availableMoves.AddRange(GetAvailableDiagonalTakes(board));
+            
+            return availableMoves;
+        }
+
+        private List<Square> GetAvailableDiagonalTakes(Board board)
+        {
+            var currentSquare = board.FindPiece(this);
+            List<Square> availableMoves = new List<Square>();
+
+            var sign = 1;
+            if (Player == Player.White)
+            {
+                sign = -1;
+            }
+            
+            var diag1 = new Square(currentSquare.Row + sign, currentSquare.Col + 1);
+            var diag2 = new Square(currentSquare.Row + sign, currentSquare.Col - 1);
+
+            var diagonalList = new List<Square>() {diag1, diag2};
+
+            foreach (var diag in diagonalList)
+            {
+                if (!diag.IsEmpty(board) && diag.Col >= 0 && diag.Col < 8 && diag.Row >= 0 && diag.Row < 8)
+                {
+                    if (board.GetPiece(diag).Player != Player)
+                    {
+                        availableMoves.Add(diag);
+                    }
                 }
             }
 
