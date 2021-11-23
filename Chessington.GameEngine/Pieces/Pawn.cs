@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Chessington.GameEngine.Pieces
@@ -16,7 +17,7 @@ namespace Chessington.GameEngine.Pieces
             switch (this.Player)
             {
                 case Player.White:
-                    availableMoves.Add(new Square(currentSquare.Row - 1, currentSquare.Col));
+                    availableMoves = CheckSquareInBoundsAndAdd( availableMoves, new Square(currentSquare.Row - 1, currentSquare.Col));
                     
                     if (currentSquare.Row == 6)
                     {
@@ -26,7 +27,7 @@ namespace Chessington.GameEngine.Pieces
                     break;
                     
                 case Player.Black:
-                    availableMoves.Add(new Square(currentSquare.Row + 1, currentSquare.Col));
+                    availableMoves = CheckSquareInBoundsAndAdd( availableMoves, new Square(currentSquare.Row + 1, currentSquare.Col));
                     
                     if (currentSquare.Row == 1)
                     {
@@ -47,7 +48,7 @@ namespace Chessington.GameEngine.Pieces
             List<Square> potentialMoves = GetPotentialMoves(board).ToList();
             List<Square> availableMoves = new List<Square>();
 
-            if (potentialMoves[0].IsEmpty(board))
+            if (potentialMoves.Count >0 && potentialMoves[0].IsEmpty(board))
             {
                 availableMoves.Add(potentialMoves[0]);
                 
