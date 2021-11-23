@@ -18,7 +18,7 @@ namespace Chessington.GameEngine.Pieces
                 case Player.White:
                     availableMoves.Add(new Square(currentSquare.Row - 1, currentSquare.Col));
                     
-                    if (currentSquare.Row == 7)
+                    if (currentSquare.Row == 6)
                     {
                         availableMoves.Add(new Square(currentSquare.Row - 2, currentSquare.Col));
                     }
