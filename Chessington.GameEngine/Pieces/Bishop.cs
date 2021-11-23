@@ -11,7 +11,7 @@ namespace Chessington.GameEngine.Pieces
 
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
-            return GetDiagonalMoves(board);
+            return RemoveFriendlySquaresFromList(GetDiagonalMoves(board).ToList(),board);
         }
     }
 }

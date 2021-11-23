@@ -25,7 +25,7 @@ namespace Chessington.GameEngine.Pieces
                 i = -j;
                 j = iTemp;
             }
-            return availableMoves;
+            return RemoveFriendlySquaresFromList(availableMoves,board);
         }
     }
 }
